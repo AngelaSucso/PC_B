@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
     int pos, c1, c2, c3;
-    int grado=40, total=9*360, acum=0;
+    int grado=40, acum=0;
 
     while(cin>>pos>>c1>>c2>>c3){
         acum=0;
