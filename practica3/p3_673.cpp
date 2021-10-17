@@ -1,45 +1,37 @@
 #include <iostream>
-#include <vector>
 #include <stack>
 using namespace std;
 
-int main()
-{
-    int casos; cin >> casos;
-    string entrada;
-    bool error = true;
-    while (casos--){
-        stack<char> signos;
-        cin >> entrada;
-        error=true;
-        for (int i = 0; i < entrada.size(); i++){
-            if (entrada[i] == '[' || entrada[i] == '('){
-                signos.push(entrada[i]);
-            }
-            else if(entrada[i]!=' '){
-                if(signos.size()){
-                    if (entrada[i] == ')' && signos.top() != '('){
-                        error = false;
-                        break;
+int main(){
+    int casos, error;
+    string entr;
+    while(cin>>casos && casos!=EOF){
+        getchar();
+        while (casos--){
+            stack<char>pila;
+            getline(cin,entr);
+            error=0;
+            for(int j=0; j<entr.size(); j++){
+                if(entr[j]=='['||entr[j]=='('){
+                    pila.push(entr[j]);
+                }
+                else if(!pila.empty()){
+                    if((pila.top()=='[')&&(entr[j]==']')){
+                        pila.pop();
                     }
-                    else if (entrada[i] == ']' && signos.top() != '['){
-                        error = false;
-                        break;
-                    }else{
-                        signos.pop();
+                    else if((pila.top()=='(')&&(entr[j]==')')){
+                        pila.pop();
                     }
                 }else{
-                    error = false;
-                    break;
+                    error=1;
                 }
             }
-        }
-        if ((signos.empty() && error) || entrada.size()==0){
-            cout<<"Yes"<<endl;
-        }else{
-            cout<<"No"<<endl;
+            if(error==1||!pila.empty()){
+                cout<<"No"<<endl;
+            }else{
+                cout<<"Yes"<<endl;
+            }
         }
     }
-
     return 0;
 }
